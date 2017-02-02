@@ -1,0 +1,8 @@
+.container
+    h1.jumbotron Home
+    .col-lg-12
+        button.btn.btn-primary(ng-click="getData()") Give me data, Daddy
+    .col-lg-6
+        h1.text-success {{dataOne.num || "No Data Yet"}}
+    .col-lg-6
+        h1.text-info {{dataTwo.num || "No Data Yet"}}
