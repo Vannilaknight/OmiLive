@@ -10,8 +10,8 @@ module.exports = function (app, config) {
     res.send(404);
   });
 
-  app.get('/data', function (req, res) {
-     request(config.self.live_api + "/data", function (err, response, body) {
+  app.get('/start', function (req, res) {
+     request(config.self.live_api + "/start", function (err, response, body) {
          res.send(body);
      })
   });

@@ -1,0 +1,67 @@
+nav.navbar-findcond {
+  background: #fff;
+  border-color: rgb(204, 204, 204);
+  border-style: none;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-radius: 0;
+  box-shadow: 0 0 0px 0 rgba(204, 204, 204, 0);
+  a {
+    color: #000;
+  }
+  ul.navbar-nav a {
+    color: #000;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #fff;
+    &:hover, &:visited, &:focus, &:active {
+      background: #fff;
+    }
+    &:hover {
+      border-color: #0275d8;
+    }
+  }
+  li.divider {
+    background: #ccc;
+  }
+  li.active {
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #0275d8;
+  }
+  button.navbar-toggle {
+    background: #0275d8;
+    border-radius: 2px;
+    &:hover {
+      background: #999;
+    }
+    > span.icon-bar {
+      background: #fff;
+    }
+  }
+  ul.dropdown-menu {
+    border: 0;
+    background: #fff;
+    border-radius: 4px;
+    margin: 4px 0;
+    box-shadow: 0 0 4px 0 #ccc;
+    > li > a {
+      color: #444;
+      &:hover {
+        background: #0275d8;
+        color: #fff;
+      }
+    }
+  }
+  span.badge {
+    background: #0275d8;
+    font-weight: normal;
+    font-size: 11px;
+    margin: 0 4px;
+    &.new {
+      background: rgba(2, 117, 216, 0.8);
+      color: #fff;
+    }
+  }
+}

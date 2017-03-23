@@ -10,18 +10,17 @@ module.exports = function (server) {
     io.on('connection', function (socket) {
         console.log("io connected");
 
-        subscriber.on('dataFlowOne', function (eventName, data, rawMessage) {
-            console.log('Data One Collected!');
-            socket.emit('freshDataOne', data);
-        });
-
-        subscriber.on('dataFlowTwo', function (eventName, data, rawMessage) {
-            console.log('Data Two Collected!');
-            socket.emit('freshDataTwo', data);
+        subscriber.on('metrics', function (eventName, data, rawMessage) {
+            console.log('Metrics Collected!');
+            socket.emit('metrics', data.data);
         });
 
         subscriber.startSubscription();
         console.log("Subscriber started")
     });
-
 };
+
+function parseMetrics(data) {
+
+    return metrics;
+}

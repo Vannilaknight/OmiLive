@@ -1,8 +1,150 @@
-.container
-    h1.jumbotron Home
-    .col-lg-12
-        button.btn.btn-primary(ng-click="getData()") Give me data, Daddy
-    .col-lg-6
-        h1.text-success {{dataOne.num || "No Data Yet"}}
-    .col-lg-6
-        h1.text-info {{dataTwo.num || "No Data Yet"}}
+.container-fluid
+    .col-xs-12
+        h1.text-success Version: {{metrics.version || "0.0.0"}}
+        button.btn.btn-default.pull-right(ng-click="getData()") Give me data, Daddy
+    .col-xs-12
+        ul.nav.nav-tabs
+            li(ng-class="getTab('memory')")
+                a(href="#", ng-click="activeTab = 'memory'") Memory
+            li(ng-class="getTab('buffers')")
+                a(href="#", ng-click="activeTab = 'buffers'") Buffers
+            li(ng-class="getTab('gc')")
+                a(href="#", ng-click="activeTab = 'gc'") Garbage Collection
+            li(ng-class="getTab('threads')")
+                a(href="#", ng-click="activeTab = 'threads'") Threads
+            li(ng-class="getTab('timers')")
+                a(href="#", ng-click="activeTab = 'timers'") Timers
+    .col-xs-12(ng-show="activeTab == 'memory'")
+        ul.nav.nav-pills.nav-stacked.col-xs-2
+            li(ng-class="getMemory('basic')")
+                a(href="#", ng-click="activeMemory = 'basic'") Basic
+            li(ng-class="getMemory('pools')")
+                a(href="#", ng-click="activeMemory = 'pools'") Pools
+        .col-xs-10(ng-show="activeMemory == 'basic'")
+            .col-xs-6
+                h3 Heap
+                p Committed: {{metrics.gauges.memory.heap.committed}}
+                p Init: {{metrics.gauges.memory.heap.init}}
+                p Max: {{metrics.gauges.memory.heap.max}}
+                p Usage: {{metrics.gauges.memory.heap.usage}}
+                p Used: {{metrics.gauges.memory.heap.used}}
+            .col-xs-6
+                h3 Non-Heap
+                p Committed: {{metrics.gauges.memory.nonHeap.committed}}
+                p Init: {{metrics.gauges.memory.nonHeap.init}}
+                p Max: {{metrics.gauges.memory.nonHeap.max}}
+                p Usage: {{metrics.gauges.memory.nonHeap.usage}}
+                p Used: {{metrics.gauges.memory.nonHeap.used}}
+            .col-xs-12
+                h3 Total
+                p Committed: {{metrics.gauges.memory.total.committed}}
+                p Init: {{metrics.gauges.memory.total.init}}
+                p Max: {{metrics.gauges.memory.total.max}}
+                p Used: {{metrics.gauges.memory.total.used}}
+        .col-xs-10(ng-show="activeMemory == 'pools'")
+            .col-xs-6
+                h3 Code Cache
+                p Committed: {{metrics.gauges.memory.pools.codeCache.committed}}
+                p Init: {{metrics.gauges.memory.pools.codeCache.init}}
+                p Max: {{metrics.gauges.memory.pools.codeCache.max}}
+                p Usage: {{metrics.gauges.memory.pools.codeCache.usage}}
+                p Used: {{metrics.gauges.memory.pools.codeCache.used}}
+            .col-xs-6
+                h3 Compressed Class Space
+                p Committed: {{metrics.gauges.memory.pools.compressedClassSpace.committed}}
+                p Init: {{metrics.gauges.memory.pools.compressedClassSpace.init}}
+                p Max: {{metrics.gauges.memory.pools.compressedClassSpace.max}}
+                p Usage: {{metrics.gauges.memory.pools.compressedClassSpace.usage}}
+                p Used: {{metrics.gauges.memory.pools.compressedClassSpace.used}}
+            .col-xs-6
+                h3 Metaspace
+                p Committed: {{metrics.gauges.memory.pools.metaSpace.committed}}
+                p Init: {{metrics.gauges.memory.pools.metaSpace.init}}
+                p Max: {{metrics.gauges.memory.pools.metaSpace.max}}
+                p Usage: {{metrics.gauges.memory.pools.metaSpace.usage}}
+                p Used: {{metrics.gauges.memory.pools.metaSpace.used}}
+            .col-xs-6
+                h3 PS Eden Space
+                p Committed: {{metrics.gauges.memory.pools.PSEdenSpace.committed}}
+                p Init: {{metrics.gauges.memory.pools.PSEdenSpace.init}}
+                p Max: {{metrics.gauges.memory.pools.PSEdenSpace.max}}
+                p Usage: {{metrics.gauges.memory.pools.PSEdenSpace.usage}}
+                p Used: {{metrics.gauges.memory.pools.PSEdenSpace.used}}
+            .col-xs-6
+                h3 PS Old Gen
+                p Committed: {{metrics.gauges.memory.pools.PSOldGen.committed}}
+                p Init: {{metrics.gauges.memory.pools.PSOldGen.init}}
+                p Max: {{metrics.gauges.memory.pools.PSOldGen.max}}
+                p Usage: {{metrics.gauges.memory.pools.PSOldGen.usage}}
+                p Used: {{metrics.gauges.memory.pools.PSOldGen.used}}
+            .col-xs-6
+                h3 PS Survivor Space
+                p Committed: {{metrics.gauges.memory.pools.PSSurvivorSpace.committed}}
+                p Init: {{metrics.gauges.memory.pools.PSSurvivorSpace.init}}
+                p Max: {{metrics.gauges.memory.pools.PSSurvivorSpace.max}}
+                p Usage: {{metrics.gauges.memory.pools.PSSurvivorSpace.usage}}
+                p Used: {{metrics.gauges.memory.pools.PSSurvivorSpace.used}}
+    .col-xs-12(ng-show="activeTab == 'buffers'")
+        .col-xs-6
+            h3 Direct
+            p Capacity: {{metrics.gauges.buffers.direct.capacity}}
+            p Count: {{metrics.gauges.buffers.direct.count}}
+            p Used: {{metrics.gauges.buffers.direct.used}}
+        .col-xs-6
+            h3 Mapped
+            p Capacity: {{metrics.gauges.buffers.mapped.capacity}}
+            p Count: {{metrics.gauges.buffers.mapped.count}}
+            p Used: {{metrics.gauges.buffers.mapped.used}}
+    .col-xs-12(ng-show="activeTab == 'gc'")
+        .col-xs-6
+            h3 PS Mark Sweep
+            p Used: {{metrics.gauges.gc.PSMarkSweep.time}}
+            p Used: {{metrics.gauges.gc.PSMarkSweep.count}}
+        .col-xs-6
+            h3 PS Scavenge
+            p Used: {{metrics.gauges.gc.PSScavenge.time}}
+            p Used: {{metrics.gauges.gc.PSScavenge.count}}
+    .col-xs-12(ng-show="activeTab == 'threads'")
+        h3 Threads
+        p Blocked: {{metrics.gauges.threads.blockedCount}}
+        p Threads: {{metrics.gauges.threads.count}}
+        p Deadlock: {{metrics.gauges.threads.deadlockCount}}
+        p New: {{metrics.gauges.threads.newCount}}
+        p Runnable: {{metrics.gauges.threads.runnableCount}}
+        p Terminated: {{metrics.gauges.threads.terminatedCount}}
+        p Timed Waiting: {{metrics.gauges.threads.timedWaitingCount}}
+        p Waiting: {{metrics.gauges.threads.waitingCount}}
+    .col-xs-12(ng-show="activeTab == 'timers'")
+        ul.nav.nav-pills.nav-stacked.col-xs-2
+            li(ng-class="getTimers('com')")
+                a(href="#", ng-click="activeTimer = 'com'") Com
+            li(ng-class="getTimers('webservices')")
+                a(href="#", ng-click="activeTimer = 'webservices'") Webservices
+        .col-xs-10(ng-show="activeTimer == 'com'")
+            nav.navbar.navbar-findcond
+                .container
+                    ul.nav.navbar-nav
+                        li(ng-class="getCom('batchWeb')")
+                            a(href='#', ng-click="activeCom = 'batchWeb'")
+                                | Batch Web Service
+                        li(ng-class="getCom('cts2')")
+                            a(href='#', ng-click="activeCom = 'cts2'")
+                                | CTS2 Web Service
+                        li(ng-class="getCom('extWeb')")
+                            a(href='#', ng-click="activeCom = 'extWeb'")
+                                | Ext Web Service 3M
+            span(ng-show="activeCom == 'batchWeb'") {{metrics.timers.com.mmm.his.hdd.omicron.com.webservices.webservice.BatchWebService}}
+            span(ng-show="activeCom == 'cts2'") {{metrics.timers.com.mmm.his.hdd.omicron.com.webservices.webservice.CTS2WebService}}
+            span(ng-show="activeCom == 'extWeb'") {{metrics.timers.com.mmm.his.hdd.omicron.com.webservices.webservice.ExtWebService3M}}
+        .col-xs-10(ng-show="activeTimer == 'webservices'")
+            nav.navbar.navbar-findcond
+                .container
+                    ul.nav.navbar-nav
+                        li(ng-class="getWebservice('service')")
+                            a(href='#', ng-click="activeWebservice = 'service'")
+                                | Service
+                        li(ng-class="getWebservice('webservice')")
+                            a(href='#', ng-click="activeWebservice = 'webservice'")
+                                | Web Service
+            span(ng-show="activeWebservice == 'service'") {{metrics.timers.com.mmm.his.hdd.omicron.webservices.service}}
+            span(ng-show="activeWebservice == 'webservice'") {{metrics.timers.com.mmm.his.hdd.omicron.webservices.webservice}}
